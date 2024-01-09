@@ -19,6 +19,7 @@
 package org.apache.maven.plugins.pmd;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -97,10 +98,19 @@ public abstract class AbstractPmdViolationCheckMojo<D> extends AbstractMojo {
      * If the number of failures is less than or equal to this value,
      * then the build will not be failed.
      *
-     * @since 3.10.0
+     * @since 2.3
      */
     @Parameter(property = "pmd.maxAllowedViolations", defaultValue = "0")
     private int maxAllowedViolations;
+
+    /**
+     * Write a plain text file to the build directory showing the current number
+     * of violations present.
+     *
+     * @since 3.2
+     */
+    @Parameter(property = "pmd.logViolationCountToFile", defaultValue = "false")
+    private boolean logViolationCountToFile;
 
     /** Helper to exclude violations from the result. */
     private final ExcludeFromFile<D> excludeFromFile;
@@ -150,6 +160,7 @@ public abstract class AbstractPmdViolationCheckMojo<D> extends AbstractMojo {
                 final int warningCount = warnings.size();
 
                 final String message = getMessage(failureCount, warningCount, key, outputFile);
+                writeViolationCountToFile(failureCount);
 
                 getLog().debug("PMD failureCount: " + failureCount + ", warningCount: " + warningCount);
 
@@ -169,6 +180,20 @@ public abstract class AbstractPmdViolationCheckMojo<D> extends AbstractMojo {
             }
         } else {
             throw new MojoFailureException("Unable to perform check, " + "unable to find " + outputFile);
+        }
+    }
+
+    private void writeViolationCountToFile(final int warningCount) throws IOException {
+        if (logViolationCountToFile) {
+            File violationCountFile = new File(targetDirectory + "/pmd-violationCount");
+            boolean fileCreated = violationCountFile.createNewFile();
+            if (!fileCreated || !violationCountFile.exists()) {
+                getLog().info("Could not create violationCount file");
+            } else {
+                try (FileWriter writer = new FileWriter(violationCountFile)) {
+                    writer.write(Long.toString(warningCount));
+                }
+            }
         }
     }
 
