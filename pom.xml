@@ -23,12 +23,12 @@ under the License.
   <parent>
     <groupId>org.apache.maven.plugins</groupId>
     <artifactId>maven-plugins</artifactId>
-    <version>41</version>
+    <version>42</version>
     <relativePath />
   </parent>
 
   <artifactId>maven-pmd-plugin</artifactId>
-  <version>3.21.3-SNAPSHOT</version>
+  <version>3.22.1-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
 
   <name>Apache Maven PMD Plugin</name>
@@ -83,7 +83,7 @@ under the License.
   <properties>
     <mavenVersion>3.2.5</mavenVersion>
     <javaVersion>8</javaVersion>
-    <pmdVersion>6.55.0</pmdVersion>
+    <pmdVersion>7.0.0</pmdVersion>
     <slf4jVersion>1.7.36</slf4jVersion>
     <aetherVersion>1.0.0.v20140518</aetherVersion>
     <doxiaVersion>1.12.0</doxiaVersion>
@@ -91,7 +91,7 @@ under the License.
     <sitePluginVersion>3.12.1</sitePluginVersion>
     <projectInfoReportsPluginVersion>3.4.3</projectInfoReportsPluginVersion>
     <jxrPluginVersion>3.3.0</jxrPluginVersion>
-    <project.build.outputTimestamp>2023-10-30T21:06:38Z</project.build.outputTimestamp>
+    <project.build.outputTimestamp>2024-04-18T10:13:24Z</project.build.outputTimestamp>
   </properties>
 
   <dependencies>
@@ -185,12 +185,6 @@ under the License.
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
-      <version>${slf4jVersion}</version>
-    </dependency>
-    <!-- Support logging of PMD through slf4j. See also MPMD-244 -->
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>jul-to-slf4j</artifactId>
       <version>${slf4jVersion}</version>
     </dependency>
 
@@ -340,7 +334,7 @@ under the License.
     <dependency>
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
-      <version>2.15.1</version>
+      <version>2.16.1</version>
       <scope>test</scope>
     </dependency>
     <dependency>
