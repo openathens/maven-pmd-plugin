@@ -23,12 +23,12 @@ under the License.
   <parent>
     <groupId>org.apache.maven.plugins</groupId>
     <artifactId>maven-plugins</artifactId>
-    <version>42</version>
+    <version>43</version>
     <relativePath />
   </parent>
 
   <artifactId>maven-pmd-plugin</artifactId>
-  <version>3.22.1-SNAPSHOT</version>
+  <version>3.26.1-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
 
   <name>Apache Maven PMD Plugin</name>
@@ -81,17 +81,17 @@ under the License.
   </distributionManagement>
 
   <properties>
-    <mavenVersion>3.2.5</mavenVersion>
     <javaVersion>8</javaVersion>
-    <pmdVersion>7.0.0</pmdVersion>
+    <mavenVersion>3.6.3</mavenVersion>
+    <pmdVersion>7.7.0</pmdVersion>
     <slf4jVersion>1.7.36</slf4jVersion>
-    <aetherVersion>1.0.0.v20140518</aetherVersion>
-    <doxiaVersion>1.12.0</doxiaVersion>
+    <resolverVersion>1.4.1</resolverVersion>
+    <doxiaVersion>2.0.0</doxiaVersion>
     <compilerPluginVersion>3.11.0</compilerPluginVersion>
-    <sitePluginVersion>3.12.1</sitePluginVersion>
-    <projectInfoReportsPluginVersion>3.4.3</projectInfoReportsPluginVersion>
-    <jxrPluginVersion>3.3.0</jxrPluginVersion>
-    <project.build.outputTimestamp>2024-04-18T10:13:24Z</project.build.outputTimestamp>
+    <sitePluginVersion>3.20.0</sitePluginVersion>
+    <projectInfoReportsPluginVersion>3.7.0</projectInfoReportsPluginVersion>
+    <jxrPluginVersion>3.5.0</jxrPluginVersion>
+    <project.build.outputTimestamp>2024-10-25T15:54:08Z</project.build.outputTimestamp>
   </properties>
 
   <dependencies>
@@ -137,9 +137,14 @@ under the License.
       <version>0.13.1</version>
     </dependency>
     <dependency>
+      <groupId>org.eclipse.sisu</groupId>
+      <artifactId>org.eclipse.sisu.plexus</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
       <groupId>org.apache.maven.shared</groupId>
       <artifactId>maven-common-artifact-filters</artifactId>
-      <version>3.3.2</version>
+      <version>3.4.0</version>
       <exclusions>
         <exclusion>
           <groupId>org.sonatype.sisu</groupId>
@@ -158,7 +163,7 @@ under the License.
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
-      <version>3.14.0</version>
+      <version>3.17.0</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -170,16 +175,19 @@ under the License.
       <groupId>net.sourceforge.pmd</groupId>
       <artifactId>pmd-java</artifactId>
       <version>${pmdVersion}</version>
+      <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>net.sourceforge.pmd</groupId>
       <artifactId>pmd-javascript</artifactId>
       <version>${pmdVersion}</version>
+      <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>net.sourceforge.pmd</groupId>
       <artifactId>pmd-jsp</artifactId>
       <version>${pmdVersion}</version>
+      <scope>runtime</scope>
     </dependency>
 
     <dependency>
@@ -193,55 +201,18 @@ under the License.
       <groupId>org.apache.maven.doxia</groupId>
       <artifactId>doxia-sink-api</artifactId>
       <version>${doxiaVersion}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.codehaus.plexus</groupId>
-          <artifactId>plexus-container-default</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.apache.maven.doxia</groupId>
       <artifactId>doxia-core</artifactId>
       <version>${doxiaVersion}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.codehaus.plexus</groupId>
-          <artifactId>plexus-container-default</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.maven.doxia</groupId>
-      <artifactId>doxia-site-renderer</artifactId>
-      <version>1.11.1</version>
-      <scope>runtime</scope>
-      <!--
-        Note: doxia-site-renderer needs to be defined AFTER pmd:
-        doxia-site-renderer requires transitively dom4j 1.1 which provides a very old version of jaxen (same jar).
-        PMD requires a newer version of jaxen, which is not compatible.
-      -->
-      <exclusions>
-        <exclusion>
-          <groupId>org.apache.httpcomponents</groupId>
-          <artifactId>httpclient</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.codehaus.plexus</groupId>
-          <artifactId>plexus-container-default</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.codehaus.plexus</groupId>
-          <artifactId>plexus-component-api</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
 
     <!-- shared -->
     <dependency>
       <groupId>org.apache.maven.reporting</groupId>
       <artifactId>maven-reporting-impl</artifactId>
-      <version>3.2.0</version>
+      <version>4.0.0</version>
     </dependency>
 
     <!-- plexus -->
@@ -302,27 +273,27 @@ under the License.
       </exclusions>
     </dependency>
     <dependency>
-      <groupId>org.eclipse.aether</groupId>
-      <artifactId>aether-api</artifactId>
-      <version>${aetherVersion}</version>
+      <groupId>org.apache.maven.resolver</groupId>
+      <artifactId>maven-resolver-api</artifactId>
+      <version>${resolverVersion}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.eclipse.aether</groupId>
-      <artifactId>aether-impl</artifactId>
-      <version>${aetherVersion}</version>
+      <groupId>org.apache.maven.resolver</groupId>
+      <artifactId>maven-resolver-impl</artifactId>
+      <version>${resolverVersion}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.eclipse.aether</groupId>
-      <artifactId>aether-connector-basic</artifactId>
-      <version>${aetherVersion}</version>
+      <groupId>org.apache.maven.resolver</groupId>
+      <artifactId>maven-resolver-connector-basic</artifactId>
+      <version>${resolverVersion}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.eclipse.aether</groupId>
-      <artifactId>aether-transport-wagon</artifactId>
-      <version>${aetherVersion}</version>
+      <groupId>org.apache.maven.resolver</groupId>
+      <artifactId>maven-resolver-transport-wagon</artifactId>
+      <version>${resolverVersion}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -334,7 +305,7 @@ under the License.
     <dependency>
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
-      <version>2.16.1</version>
+      <version>2.17.0</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -356,6 +327,13 @@ under the License.
               <exclude>.pmd</exclude>
               <exclude>.checkstyle</exclude>
             </excludes>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-checkstyle-plugin</artifactId>
+          <configuration>
+            <suppressionsLocation>src/config/checkstyle-suppressions.xml</suppressionsLocation>
           </configuration>
         </plugin>
       </plugins>
@@ -409,7 +387,7 @@ under the License.
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>animal-sniffer-maven-plugin</artifactId>
-        <version>1.23</version>
+        <version>1.24</version>
         <configuration>
           <signature>
             <groupId>org.codehaus.mojo.signature</groupId>

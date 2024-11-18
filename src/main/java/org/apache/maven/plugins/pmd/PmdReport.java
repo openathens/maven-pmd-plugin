@@ -313,25 +313,16 @@ public class PmdReport extends AbstractPmdReport {
     }
 
     @Override
-    public boolean canGenerateReport() {
+    public boolean canGenerateReport() throws MavenReportException {
         if (skip) {
-            getLog().info("Skipping PMD execution");
             return false;
         }
 
-        boolean result = super.canGenerateReport();
+        boolean result = canGenerateReportInternal();
         if (result) {
-            try {
-                executePmd();
-                if (skipEmptyReport) {
-                    result = pmdResult.hasViolations();
-                    if (!result) {
-                        getLog().debug("Skipping report since skipEmptyReport is true and "
-                                + "there are no PMD violations.");
-                    }
-                }
-            } catch (MavenReportException e) {
-                throw new RuntimeException(e);
+            executePmd();
+            if (skipEmptyReport) {
+                result = pmdResult.hasViolations();
             }
         }
         return result;
@@ -348,7 +339,7 @@ public class PmdReport extends AbstractPmdReport {
             filesToProcess = getFilesToProcess();
 
             if (filesToProcess.isEmpty() && !"java".equals(language)) {
-                getLog().warn("No files found to process. Did you add your additional source folders like javascript?"
+                getLog().warn("No files found to process. Did you forget to add additional source directories?"
                         + " (see also build-helper-maven-plugin)");
             }
         } catch (IOException e) {
@@ -370,7 +361,7 @@ public class PmdReport extends AbstractPmdReport {
         request.setOutputEncoding(getOutputEncoding());
         request.setFormat(format);
         request.setSkipPmdError(skipPmdError);
-        request.setIncludeXmlInSite(includeXmlInSite);
+        request.setIncludeXmlInReports(includeXmlInReports);
         request.setReportOutputDirectory(getReportOutputDirectory().getAbsolutePath());
         request.setLogLevel(determineCurrentRootLogLevel());
 
@@ -513,23 +504,11 @@ public class PmdReport extends AbstractPmdReport {
                                 resolvedArtifact.getArtifact().getFile().toString());
                     }
 
-                    List<String> projectClasspath = includeTests
-                            ? localProject.getTestClasspathElements()
-                            : localProject.getCompileClasspathElements();
-
-                    // Add the project's target folder first
-                    classpath.addAll(projectClasspath);
-                    if (!localProject.isExecutionRoot()) {
-                        for (String path : projectClasspath) {
-                            File pathFile = new File(path);
-                            String[] children = pathFile.list();
-
-                            if (!pathFile.exists() || (children != null && children.length == 0)) {
-                                getLog().warn("The project " + localProject.getArtifactId()
-                                        + " does not seem to be compiled. PMD results might be inaccurate.");
-                            }
-                        }
-                    }
+                    // Add the project's classes first
+                    classpath.addAll(
+                            includeTests
+                                    ? localProject.getTestClasspathElements()
+                                    : localProject.getCompileClasspathElements());
                 }
 
                 // Add the dependencies as last entries

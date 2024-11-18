@@ -26,9 +26,104 @@ Header Templates
 ### U+1F47B (Ghost)   Maintenance
 ### U+1F4DD (Memo)    Documentation updates
 ### U+1F4E6 (Package) Dependency updates
+### U+1F4A5 (Boom)    Breaking changes
 -->
 
 # Release Notes
+
+⚠ Note: The release notes might not always be up to date. The release notes for the latest release are always
+sent through the Maven Announcement mailing list. The archive is available here:
+<https://lists.apache.org/list.html?announce@maven.apache.org>
+
+## Version 3.26.0
+
+**Release Date:** 2024-10-25
+
+**Announcement:** [[ANN] Maven PMD Plugin 3.26.0 released-Apache Mail Archives](https://lists.apache.org/thread/97yd0vtfx2hq0fs9q8v1m8f9ypk32ymf)
+
+**JIRA:** [Release Notes - Maven PMD Plugin - Version 3.26.0](https://issues.apache.org/jira/projects/MPMD/versions/12355202)
+
+**GitHub:** <https://github.com/apache/maven-pmd-plugin/releases/tag/maven-pmd-plugin-3.26.0>
+
+### 📝 Documentation updates
+* [MPMD-405](https://issues.apache.org/jira/browse/MPMD-405) - Update release notes for 3.25.0 ([#166](https://github.com/apache/maven-pmd-plugin/pull/166)) @adangel
+
+### 📦 Dependency updates
+* [MPMD-404](https://issues.apache.org/jira/browse/MPMD-404) - Upgrade to PMD 7.7.0 ([#170](https://github.com/apache/maven-pmd-plugin/pull/170)) @pzygielo
+* [MPMD-407](https://issues.apache.org/jira/browse/MPMD-407) - Upgrade to Doxia 2.0.0 GA Stack ([#175](https://github.com/apache/maven-pmd-plugin/pull/175)) @michael-o
+* Bump commons-io:commons-io from 2.7 to 2.14.0 in /src/it/MPMD-318-auxclasspath-includeTests/module-a ([#174](https://github.com/apache/maven-pmd-plugin/pull/174)) @dependabot
+* Bump commons-io:commons-io from 2.16.1 to 2.17.0 ([#169](https://github.com/apache/maven-pmd-plugin/pull/169)) @dependabot
+* Bump org.apache.commons:commons-lang3 from 3.16.0 to 3.17.0 ([#167](https://github.com/apache/maven-pmd-plugin/pull/167)) @dependabot
+
+NOTE: Read the details on this release here: https://cwiki.apache.org/confluence/display/MAVEN/Towards+Doxia+2.0.0+Stack
+
+## Version 3.25.0
+
+**Release Date:** 2024-08-22
+
+**Announcement:** [[ANN] Maven PMD Plugin 3.25.0 released-Apache Mail Archives](https://lists.apache.org/thread/604l12s5hg2y3wc2zcppz3y19hlyms5m)
+
+**JIRA:** [Release Notes - Maven PMD Plugin - Version 3.25.0](https://issues.apache.org/jira/projects/MPMD/versions/12355005)
+
+**GitHub:** <https://github.com/apache/maven-pmd-plugin/releases/tag/maven-pmd-plugin-3.25.0>
+
+### 🚀 New features and improvements
+* [MPMD-390](https://issues.apache.org/jira/browse/MPMD-390) - Dynamically calculate xrefLocation/xrefTestLocation ([#126](https://github.com/apache/maven-pmd-plugin/pull/126)) @michael-o
+
+### 🐛 Bug Fixes
+* [MPMD-368](https://issues.apache.org/jira/browse/MPMD-368) - Parameter 'localRepository' is deprecated
+
+### 👻 Maintenance
+* [MPMD-398](https://issues.apache.org/jira/browse/MPMD-398) - Refresh download page ([#165](https://github.com/apache/maven-pmd-plugin/pull/165)) @FredrikAnderson
+
+### 📝 Documentation updates
+* (doc) Update release notes for 3.23.0 and 3.24.0 ([#161](https://github.com/apache/maven-pmd-plugin/pull/161)) @adangel
+
+### 📦 Dependency updates
+* [MPMD-389](https://issues.apache.org/jira/browse/MPMD-389) - Upgrade to Doxia 2.0.0 Milestone Stack ([#126](https://github.com/apache/maven-pmd-plugin/pull/126)) @michael-o
+* [MPMD-401](https://issues.apache.org/jira/browse/MPMD-401) - Upgrade to Parent 43 ([#159](https://github.com/apache/maven-pmd-plugin/pull/159)) @dependabot
+* Bump org.apache.commons:commons-lang3 from 3.15.0 to 3.16.0 ([#164](https://github.com/apache/maven-pmd-plugin/pull/164)) @dependabot
+* Bump org.apache.commons:commons-lang3 from 3.14.0 to 3.15.0 ([#163](https://github.com/apache/maven-pmd-plugin/pull/163)) @dependabot
+
+### 💥 Breaking changes
+* If you use maven-site-plugin together with maven-pmd-plugin, you need to upgrade m-site-p to 3.20.0 or later.
+* Read the details on this release here: https://cwiki.apache.org/confluence/display/MAVEN/Towards+Doxia+2.0.0+Stack
+
+## Version 3.24.0
+
+**Release Date:** 2024-07-10
+
+**JIRA:** [Release Notes - Maven PMD Plugin - Version 3.24.0](https://issues.apache.org/jira/projects/MPMD/versions/12354924)
+
+**GitHub:** <https://github.com/apache/maven-pmd-plugin/releases/tag/maven-pmd-plugin-3.24.0>
+
+### 🚀 New features and improvements
+* [MPMD-391](https://issues.apache.org/jira/browse/MPMD-391) - Log what developers care about and not what they don't ([#156](https://github.com/apache/maven-pmd-plugin/pull/156)) @michael-o
+
+### 🐛 Bug Fixes
+* [MPMD-399](https://issues.apache.org/jira/browse/MPMD-399) - Incorrect warning: The project X does not seem to be compi… ([#154](https://github.com/apache/maven-pmd-plugin/pull/154)) @michael-o
+
+### 📦 Dependency updates
+* [MPMD-400](https://issues.apache.org/jira/browse/MPMD-400) - Upgrade to PMD 7.3.0 ([#157](https://github.com/apache/maven-pmd-plugin/pull/157)) @michael-o
+* Bump org.codehaus.mojo:animal-sniffer-maven-plugin from 1.23 to 1.24 ([#155](https://github.com/apache/maven-pmd-plugin/pull/155)) @dependabot
+* Bump org.apache.maven.shared:maven-common-artifact-filters from 3.3.2 to 3.4.0 ([#153](https://github.com/apache/maven-pmd-plugin/pull/153)) @dependabot
+
+### 👻 Maintenance
+* Remove outdated ([#158](https://github.com/apache/maven-pmd-plugin/pull/158)) @michael-o
+
+## Version 3.23.0
+
+**Release Date:** 2024-06-08
+
+**JIRA:** [Release Notes - Maven PMD Plugin - Version 3.23.0](https://issues.apache.org/jira/projects/MPMD/versions/12354616)
+
+**GitHub:** <https://github.com/apache/maven-pmd-plugin/releases/tag/maven-pmd-plugin-3.23.0>
+
+### 🐛 Bug Fixes
+* [MPMD-395](https://issues.apache.org/jira/browse/MPMD-395) - Build doesn't fail for invalid CPD format ([#150](https://github.com/apache/maven-pmd-plugin/pull/150)) @adangel
+
+### 📦 Dependency updates
+* [MPMD-397](https://issues.apache.org/jira/browse/MPMD-397) - Upgrade to Maven 3.6.3 ([#151](https://github.com/apache/maven-pmd-plugin/pull/151)) @michael-o
 
 ## Version 3.22.0
 
@@ -41,7 +136,7 @@ Header Templates
 ### 🚀 New features and improvements
 * [MPMD-379](https://issues.apache.org/jira/browse/MPMD-379) - Upgrade to use PMD 7.0.0 by default ([#144](https://github.com/apache/maven-pmd-plugin/pull/144)) @mkolesnikov
 
-## 📦 Dependency updates
+### 📦 Dependency updates
 * [MPMD-394](https://issues.apache.org/jira/browse/MPMD-394) - Bump org.apache.maven.plugins:maven-plugins from 41 to 42 ([#148](https://github.com/apache/maven-pmd-plugin/pull/148)) @dependabot
 * [MPMD-393](https://issues.apache.org/jira/browse/MPMD-393) - Bump commons-io:commons-io from 2.16.0 to 2.16.1 ([#147](https://github.com/apache/maven-pmd-plugin/pull/147)) @dependabot
 * [MPMD-393](https://issues.apache.org/jira/browse/MPMD-393) - Bump commons-io:commons-io from 2.15.1 to 2.16.0 ([#146](https://github.com/apache/maven-pmd-plugin/pull/146)) @dependabot
@@ -51,7 +146,7 @@ Header Templates
 * Bump commons-io:commons-io from 2.11.0 to 2.15.1 ([#138](https://github.com/apache/maven-pmd-plugin/pull/138)) @dependabot
 * [MPMD-388](https://issues.apache.org/jira/browse/MPMD-388) - Upgrade to Parent 41 @michael-o
 
-## 👻 Maintenance
+### 👻 Maintenance
 * Bump release-drafter/release-drafter from 5 to 6 ([#142](https://github.com/apache/maven-pmd-plugin/pull/142)) @dependabot
 
 ## Version 3.21.2

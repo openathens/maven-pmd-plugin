@@ -1,4 +1,3 @@
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -18,32 +17,43 @@
  * under the License.
  */
 
+import groovy.xml.XmlSlurper
+
 File buildLog = new File( basedir, 'build.log' )
 assert buildLog.exists()
 
+File pmdXml = new File( basedir, "target/pmd.xml" )
+assert pmdXml.exists()
+
+def pmd = new XmlSlurper().parse( pmdXml )
+def version = pmd.@version
+
+File cpdXml = new File( basedir, 'target/cpd.xml' )
+assert cpdXml.exists()
+
+def cpd = new XmlSlurper().parse( cpdXml )
+def pmdVersion = cpd.@pmdVersion
+
 assert buildLog.text.contains( '[INFO] Toolchain in maven-pmd-plugin: JDK[' )
-assert buildLog.text.contains( '[INFO] PMD Failure: sample.Sample:24 Rule:ExtendsObject' )
-assert buildLog.text.contains( '[INFO] PMD Failure: sample.Sample:36 Rule:DontCallThreadRun' )
-assert buildLog.text.contains( '[INFO] You have 2 PMD violations.' )
-assert buildLog.text.contains( '[INFO] You have 1 CPD duplication' )
+assert buildLog.text.contains( '[WARNING] PMD Failure: sample.Sample:24 Rule:ExtendsObject' )
+assert buildLog.text.contains( '[WARNING] PMD Failure: sample.Sample:36 Rule:DontCallThreadRun' )
 
-File pmdReport = new File( basedir, 'target/pmd.xml' )
-assert pmdReport.exists()
-assert pmdReport.text.contains( '<violation beginline="24" endline="24" begincolumn="29" endcolumn="35" rule="ExtendsObject"' )
-assert pmdReport.text.contains( '<violation beginline="36" endline="36" begincolumn="9" endcolumn="32" rule="DontCallThreadRun"' )
+assert buildLog.text.contains('[WARNING] PMD ' + version + ' has found 2 violations. For more details see:')
+assert buildLog.text.contains('[WARNING] CPD ' + pmdVersion + ' has found 1 duplication. For more details see:')
 
-File pmdSite = new File( basedir, 'target/site/pmd.html' )
-assert pmdSite.exists()
-assert pmdSite.text.contains( 'Sample.java' )
-assert pmdSite.text.contains( 'ExtendsObject' )
-assert pmdSite.text.contains( 'DontCallThreadRun' )
+assert pmdXml.text.contains( '<violation beginline="24" endline="24" begincolumn="29" endcolumn="35" rule="ExtendsObject"' )
+assert pmdXml.text.contains( '<violation beginline="36" endline="36" begincolumn="9" endcolumn="32" rule="DontCallThreadRun"' )
 
-File cpdReport = new File( basedir, 'target/cpd.xml' )
-assert cpdReport.exists()
-assert cpdReport.text.contains( 'Name.java' )
-assert cpdReport.text.contains( 'Name2.java' )
+File pmdHtmlReport = new File( basedir, 'target/reports/pmd.html' )
+assert pmdHtmlReport.exists()
+assert pmdHtmlReport.text.contains( 'Sample.java' )
+assert pmdHtmlReport.text.contains( 'ExtendsObject' )
+assert pmdHtmlReport.text.contains( 'DontCallThreadRun' )
 
-File cpdSite = new File( basedir, 'target/site/cpd.html' )
-assert cpdSite.exists()
-assert cpdSite.text.contains( 'Name.java' )
-assert cpdSite.text.contains( 'Name2.java' )
+assert cpdXml.text.contains( 'Name.java' )
+assert cpdXml.text.contains( 'Name2.java' )
+
+File cpdHtmlReport = new File( basedir, 'target/reports/cpd.html' )
+assert cpdHtmlReport.exists()
+assert cpdHtmlReport.text.contains( 'Name.java' )
+assert cpdHtmlReport.text.contains( 'Name2.java' )
